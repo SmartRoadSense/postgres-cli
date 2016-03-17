@@ -7,4 +7,7 @@ RUN apt update && apt install -y \
   && rm -rf /var/lib/apt/lists/*
 RUN pip install pgcli
 
+RUN useradd -u 1000 -d /tmp app
+USER app
+
 CMD ["true"]
