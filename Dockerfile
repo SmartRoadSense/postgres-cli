@@ -3,6 +3,7 @@ FROM alpine:3.9
 RUN apk --no-cache update && \
     apk --no-cache add \
     gcc=8.2.0-r2 \
+	bash=4.4.19-r1 \
     postgresql-client=11.1-r0 \
     musl-dev=1.1.20-r3 \
     postgresql-dev=11.1-r0 \
