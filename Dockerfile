@@ -1,19 +1,23 @@
-FROM alpine:3.9
+FROM debian:9
 
-RUN apk --no-cache update && \
-    apk --no-cache add \
-    gcc=8.2.0-r2 \
-	bash=4.4.19-r1 \
-    postgresql-client=11.1-r0 \
-    musl-dev=1.1.20-r3 \
-    postgresql-dev=11.1-r0 \
-    python2-dev=2.7.15-r3 \
-    py2-pip=18.1-r0
-
-RUN pip install 'pgcli==2.0.2'
+RUN apt update && apt install -y \
+  python-pip \
+  python-dev \
+  libpq-dev \
+  libevent-dev \
+  postgresql-client-9.6 \
+  osm2pgsql \
+  curl \
+  wget \
+  zip \
+  && rm -rf /var/lib/apt/lists/*
+  
+RUN pip install pgcli
+RUN pip install psycopg2-binary
 
 # Drop permissions and run as UID 1000 user
-RUN adduser -D -u 1000 app
+RUN adduser --disabled-login --disabled-password -u 1000 app
+
 USER app
 
 CMD ["true"]
